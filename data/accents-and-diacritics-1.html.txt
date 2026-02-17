@@ -1,0 +1,34 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/accents-and-diacritics-1.html
+Access Time: 2025-05-21 21:13:37.037798
+Title: 
+Text: 
+Diacritics on characters in English have a fairly marginal status, and
+we might well want cliché and cliche to match, or
+naive and naïve.  This can be done by normalizing
+tokens to remove diacritics.  In many other languages, diacritics are a
+regular part of the writing system and distinguish different sounds.
+Occasionally words are distinguished only by their
+accents. For instance, in Spanish, peña is `a cliff', while
+pena is `sorrow'. Nevertheless, the important question is usually not
+prescriptive or linguistic but is a question of how users are likely to
+write queries 
+for these words. In many cases, users will enter queries for words
+without diacritics, whether for reasons of speed, laziness, limited software,
+or habits born of the days when it was hard to use non-ASCII text on
+many computer systems.  In these cases, it might be best to
+equate all words to a form without diacritics.
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

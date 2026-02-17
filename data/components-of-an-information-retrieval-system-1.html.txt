@@ -1,0 +1,20 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/components-of-an-information-retrieval-system-1.html
+Access Time: 2025-05-21 21:09:44.487195
+Title: Components of an information retrieval system
+Text: 
+
+
+Subsections
+
+Tiered indexes
+Query-term proximity
+Designing parsing and scoring functions
+Putting it all together
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

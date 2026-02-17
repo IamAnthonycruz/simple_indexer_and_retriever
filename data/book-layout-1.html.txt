@@ -1,0 +1,26 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/book-layout-1.html
+Access Time: 2025-05-21 21:08:03.095569
+Title: Book layout
+Text: 
+Worked examples in the text appear with
+a pencil sign next to them in the left margin.  Advanced or
+difficult material appears in sections or subsections
+indicated with scissors in the margin.
+Exercises are marked in the margin with a question mark.
+The level of difficulty of exercises is indicated as
+easy (), medium (), or difficult ().
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

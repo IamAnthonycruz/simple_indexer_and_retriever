@@ -1,0 +1,30 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/a-note-on-terminology-1.html
+Access Time: 2025-05-21 21:13:50.431823
+Title: 
+Text: 
+Some researchers distinguish between 
+ exhaustive 
+clusterings
+that assign each document to a cluster and non-exhaustive
+clusterings, in which some documents will be assigned to no
+cluster. Non-exhaustive clusterings in which each document
+is a member of either no cluster or one cluster are
+called 
+ exclusive . 
+We define clustering to be exhaustive in
+this book. 
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

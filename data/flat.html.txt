@@ -1,0 +1,16 @@
+URL: http://nlp.stanford.edu/IR-book/html/flat.html
+Access Time: 2025-05-21 21:07:17.145379
+Title: Flat Clustering
+Text:  Under construction ...
+
+Clustering software
+
+LingPipe
+Cluster 3.0
+
+Search result clustering:
+Nutch,
+Carrot
+Oracle
+
+

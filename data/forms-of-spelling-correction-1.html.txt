@@ -1,0 +1,20 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/forms-of-spelling-correction-1.html
+Access Time: 2025-05-21 21:08:41.612324
+Title: Forms of spelling correction
+Text: 
+We begin by examining two techniques for addressing isolated-term correction: edit distance, and -gram overlap. We then proceed to context-sensitive correction.
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

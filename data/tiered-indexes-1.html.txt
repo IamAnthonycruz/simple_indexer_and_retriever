@@ -1,0 +1,60 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/tiered-indexes-1.html
+Access Time: 2025-05-21 21:09:45.807422
+Title: Tiered indexes
+Text: 
+
+
+Tiered indexes.If we fail to get  results from tier 1, query processing ``falls back'' to tier 2, and so on.  Within each tier, postings are ordered by document ID.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Next: Query-term proximity
+ Up: Components of an information
+ Previous: Components of an information
+    Contents 
+    Index
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Next: Query-term proximity
+ Up: Components of an information
+ Previous: Components of an information
+    Contents 
+    Index
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

@@ -1,0 +1,20 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/extensions-to-the-svm-model-1.html
+Access Time: 2025-05-21 21:11:50.764348
+Title: Extensions to the SVM model
+Text: 
+
+
+Subsections
+
+Soft margin classification
+Multiclass SVMs
+Nonlinear SVMs
+Experimental results
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

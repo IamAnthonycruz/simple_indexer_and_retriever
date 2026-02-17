@@ -1,0 +1,18 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/general-wildcard-queries-1.html
+Access Time: 2025-05-21 21:08:35.090750
+Title: General wildcard queries
+Text: 
+
+
+
+Subsections
+
+Permuterm indexes
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

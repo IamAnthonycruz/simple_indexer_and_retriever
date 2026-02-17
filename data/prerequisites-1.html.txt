@@ -1,0 +1,56 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/prerequisites-1.html
+Access Time: 2025-05-21 21:08:01.791323
+Title: Prerequisites
+Text: 
+introicompress assume as prerequisite a basic course in algorithms and data structures.  Chapters 6 7  require, in addition, a knowledge of basic linear algebra including vectors and dot products. No additional prerequisites are assumed until Chapter 11 , where a basic course in probability theory is required; Section 11.1  gives a quick review of the concepts necessary in probirnbayes.  Chapter 15  assumes that the reader is familiar with the notion of nonlinear optimization, although the chapter may be read without detailed knowledge of algorithms for nonlinear optimization.  Chapter 18  demands a first course in linear algebra including familiarity with the notions of matrix rank and eigenvectors; a brief review is given in Section 18.1 .  The knowledge of eigenvalues and eigenvectors is also necessary in Chapter 21 .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Next: Book layout
+ Up: Preface
+ Previous: Book organization and course
+    Contents 
+    Index
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Next: Book layout
+ Up: Preface
+ Previous: Book organization and course
+    Contents 
+    Index
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

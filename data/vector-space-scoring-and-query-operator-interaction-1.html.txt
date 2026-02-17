@@ -1,0 +1,76 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/vector-space-scoring-and-query-operator-interaction-1.html
+Access Time: 2025-05-21 21:09:51.079875
+Title: Vector space scoring and query operator interaction
+Text: 
+Vector space scoring supports so-called  free text  retrieval, in which a query is specified as a set of words without any query operators connecting them. It allows documents matching the query to be scored and thus ranked, unlike the Boolean, wildcard and phrase queries studied earlier. Classically, the interpretation of such free text queries was that at least one of the query terms be present in any retrieved document. However more recently, web search engines such as Google have popularized the notion that a set of terms typed into their query boxes (thus on the face of it, a free text query) carries the semantics of a conjunctive query that only retrieves documents containing all or most query terms.
+
+
+
+
+Subsections
+
+
+Boolean retrieval
+Wildcard queries
+Phrase queries
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Next: Boolean retrieval
+ Up: Computing scores in a
+ Previous: Putting it all together
+    Contents 
+    Index
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+Subsections
+
+
+Boolean retrieval
+Wildcard queries
+Phrase queries
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Next: Boolean retrieval
+ Up: Computing scores in a
+ Previous: Putting it all together
+    Contents 
+    Index
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

@@ -1,0 +1,28 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/other-issues-in-english-1.html
+Access Time: 2025-05-21 21:13:39.661725
+Title: 
+Text: 
+Other possible normalizations are quite idiosyncratic and particular to
+English.  For instance, you might wish to equate ne'er
+and never or the British spelling colour and the American
+spelling color.  Dates, times and similar items come in multiple
+formats, presenting
+additional challenges.  You might wish to collapse together
+3/12/91 and Mar. 12, 1991.  However, correct processing
+here is complicated by the fact that in the U.S., 3/12/91 is
+Mar. 12, 1991, whereas in Europe it is 3 Dec 1991.
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

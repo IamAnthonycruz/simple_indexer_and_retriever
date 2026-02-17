@@ -1,0 +1,33 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/web-and-contact-information-1.html
+Access Time: 2025-05-21 21:08:05.723096
+Title: Web and contact information
+Text: 
+This book has a companion website at http://informationretrieval.org.  As well as links to some more general resources, it is our intent to maintain on this website a set of slides for each chapter which may be used for the corresponding lecture.
+We gladly welcome further feedback, corrections, and
+suggestions on the book, which may be sent to all the
+authors at informationretrieval (at) yahoogroups
+(dot) com.
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

@@ -1,0 +1,28 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/features-a-crawler-should-provide-1.html
+Access Time: 2025-05-21 21:13:04.387125
+Title: Features a crawler should provide
+Text: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Next: Crawling
+ Up: Overview
+ Previous: Features a crawler must
+    Contents 
+    Index
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

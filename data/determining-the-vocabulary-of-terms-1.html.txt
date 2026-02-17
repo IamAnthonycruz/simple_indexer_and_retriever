@@ -1,0 +1,27 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/determining-the-vocabulary-of-terms-1.html
+Access Time: 2025-05-21 21:08:17.811341
+Title: Determining the vocabulary of terms
+Text: 
+
+
+Subsections
+
+Tokenization
+Dropping common terms: stop words
+Normalization (equivalence classing of terms)
+
+Accents and diacritics.
+Capitalization/case-folding.
+Other issues in English.
+Other languages.
+
+
+Stemming and lemmatization
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+

@@ -1,0 +1,20 @@
+URL: https://nlp.stanford.edu/IR-book/html/htmledition/variant-tf-idf-functions-1.html
+Access Time: 2025-05-21 21:09:27.176140
+Title: Variant tf-idf functions
+Text: 
+
+
+Subsections
+
+Sublinear tf scaling
+Maximum tf normalization
+Document and query weighting schemes
+Pivoted normalized document length
+
+
+
+
+© 2008 Cambridge University PressThis is an automatically generated page. In case of formatting errors you may want to look at the PDF edition of the book.
+2009-04-07
+
+
