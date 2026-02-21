@@ -48,21 +48,21 @@ def text_preprocessing(file_dict):
     lemmatizer = WordNetLemmatizer()
 
     for key, val in file_dict.items():
-        # lowercase
         val = val.lower()
-
-        # remove punctuation
         val = re.sub(r'[^\w\s]', "", val)
-
-        # tokenize
         tokens = nltk.word_tokenize(val)
-
-        # remove stopwords
         tokens = [word for word in tokens if word not in stop_words]
-
-        # lemmatize
         tokens = [lemmatizer.lemmatize(word) for word in tokens]
-
         processed_dict[key] = tokens
 
     return processed_dict
+
+def build_vocabulary(preprocessed_dict):
+	all_tokens = set()
+
+	for tokens in preprocessed_dict.values():
+		all_tokens.update(tokens)
+	vocab = sorted(all_tokens)
+	tok2idx = {token:idx for idx, token in enumerate(vocab)}
+	idx2tok= {idx:token for idx, token in enumerate(vocab)}
+	return tok2idx, idx2tok
