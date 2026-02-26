@@ -10,7 +10,7 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('punkt_tab')
 
-# ── Your existing functions (unchanged) ─────────────────────────────────────
+# ── Functions ────────────────────────────────────────────────────────────────
 
 def parse_file(file_path):
     hash_map = {}
@@ -50,72 +50,102 @@ def build_vocabulary(preprocessed_dict):
     idx2tok = {idx: token for idx, token in enumerate(vocab)}
     return tok2idx, idx2tok
 
-# ── Fixed loader: list of docs, not a merged dict ────────────────────────────
+# ── Constants ─────────────────────────────────────────────────────────────────
 
-folder_path = r"C:\Users\cruzi\OneDrive\Documents\CS4422 Assignment 2\data"
-raw_docs = []   # list of dicts, one per file
+PICKLE_PATH   = "index_data.pkl"
+FOLDER_PATH   = r"C:\Users\cruzi\OneDrive\Documents\CS4422 Assignment 2\data"
+CONTENT_FIELD = "Text"
+FORCE_REBUILD = False   # set to True to regenerate the index from scratch
 
-for filename in os.listdir(folder_path):
-    full_path = os.path.join(folder_path, filename)
-    if os.path.isfile(full_path):
-        parsed = parse_file(full_path)
-        parsed["filename"] = filename          # attach filename for metadata
-        raw_docs.append(parsed)
+# ── Load or Build ─────────────────────────────────────────────────────────────
 
-print(f"Loaded {len(raw_docs)} documents")
+if os.path.exists(PICKLE_PATH) and not FORCE_REBUILD:
+    # ── Fast path: load from disk ─────────────────────────────────────────
+    print("Found index_data.pkl — loading from disk (skipping indexing)...")
+    with open(PICKLE_PATH, "rb") as f:
+        index_data = pickle.load(f)
 
-# ── Build vocabulary across all documents ───────────────────────────────────
-# text_preprocessing expects a dict of {field: text}
-# We preprocess the content field (adjust key name to match your actual files)
+    inverted_index = index_data["inverted_index"]
+    doc_metadata   = index_data["doc_metadata"]
+    doc_lengths    = index_data["doc_lengths"]
+    avgdl          = index_data["avgdl"]
+    tok2idx        = index_data["tok2idx"]
+    idx2tok        = index_data["idx2tok"]
+    num_docs       = index_data["num_docs"]
 
-CONTENT_FIELD = "Text"    # change this to whatever key holds the main text
+    print(f"Loaded index: {len(inverted_index)} terms, {num_docs} docs, avgdl={avgdl:.2f}")
 
-all_preprocessed_tokens = {}    # doc_id → token list (for vocabulary building)
-for doc_id, doc in enumerate(raw_docs):
-    text = doc.get(CONTENT_FIELD, "")
-    result = text_preprocessing({CONTENT_FIELD: text})
-    all_preprocessed_tokens[doc_id] = result[CONTENT_FIELD]
+else:
+    # ── Slow path: build from raw files ──────────────────────────────────
+    raw_docs = []
 
-tok2idx, idx2tok = build_vocabulary(all_preprocessed_tokens)
-print(f"Vocabulary size: {len(tok2idx)}")
+    for filename in os.listdir(FOLDER_PATH):
+        full_path = os.path.join(FOLDER_PATH, filename)
+        if os.path.isfile(full_path):
+            parsed = parse_file(full_path)
+            parsed["filename"] = filename
+            raw_docs.append(parsed)
 
-# ── Day 4: Build the inverted index ─────────────────────────────────────────
+    print(f"Loaded {len(raw_docs)} documents")
 
-inverted_index = defaultdict(list)   # term_idx → [(doc_id, tf), ...]
-doc_metadata   = {}
-doc_lengths    = []
+    # ── Preprocess & build vocabulary ────────────────────────────────────
+    all_preprocessed_tokens = {}
+    for doc_id, doc in enumerate(raw_docs):
+        text = doc.get(CONTENT_FIELD, "")
+        result = text_preprocessing({CONTENT_FIELD: text})
+        all_preprocessed_tokens[doc_id] = result[CONTENT_FIELD]
 
-for doc_id, doc in enumerate(raw_docs):
-    tokens    = all_preprocessed_tokens[doc_id]
-    tf_counts = Counter(tokens)
+    tok2idx, idx2tok = build_vocabulary(all_preprocessed_tokens)
+    print(f"Vocabulary size: {len(tok2idx)}")
 
-    # Postings: one entry per unique term in this document
-    for token, freq in tf_counts.items():
-        if token in tok2idx:
-            term_idx = tok2idx[token]
-            inverted_index[term_idx].append((doc_id, freq))
+    # ── Build inverted index ──────────────────────────────────────────────
+    inverted_index = defaultdict(list)
+    doc_metadata   = {}
+    doc_lengths    = []
 
-    # Document length (tokens after preprocessing) — used in avgdl and BM25+
-    doc_lengths.append(len(tokens))
+    for doc_id, doc in enumerate(raw_docs):
+        tokens    = all_preprocessed_tokens[doc_id]
+        tf_counts = Counter(tokens)
 
-    # Metadata — adjust keys to match what parse_file actually pulls from your files
-    doc_metadata[doc_id] = {
-        "url":      doc.get("URL",      ""),
-        "title":    doc.get("Title",    ""),
-        "content":  doc.get(CONTENT_FIELD, ""),
-        "filename": doc.get("filename", "")
+        for token, freq in tf_counts.items():
+            if token in tok2idx:
+                term_idx = tok2idx[token]
+                inverted_index[term_idx].append((doc_id, freq))
+
+        doc_lengths.append(len(tokens))
+
+        doc_metadata[doc_id] = {
+            "url":      doc.get("URL",          ""),
+            "title":    doc.get("Title",         ""),
+            "content":  doc.get(CONTENT_FIELD,   ""),
+            "filename": doc.get("filename",      "")
+        }
+
+    avgdl   = sum(doc_lengths) / len(doc_lengths)
+    num_docs = len(raw_docs)
+
+    print(f"\nIndex built:")
+    print(f"  Unique terms indexed : {len(inverted_index)}")
+    print(f"  Total documents      : {num_docs}")
+    print(f"  avgdl                : {avgdl:.2f} tokens")
+
+    # ── Save to disk ──────────────────────────────────────────────────────
+    index_data = {
+        "inverted_index" : dict(inverted_index),
+        "doc_metadata"   : doc_metadata,
+        "doc_lengths"    : doc_lengths,
+        "avgdl"          : avgdl,
+        "tok2idx"        : tok2idx,
+        "idx2tok"        : idx2tok,
+        "num_docs"       : num_docs
     }
 
-# ── avgdl ────────────────────────────────────────────────────────────────────
+    with open(PICKLE_PATH, "wb") as f:
+        pickle.dump(index_data, f)
 
-avgdl = sum(doc_lengths) / len(doc_lengths)
+    print("\nSaved → index_data.pkl")
 
-print(f"\nIndex built:")
-print(f"  Unique terms indexed : {len(inverted_index)}")
-print(f"  Total documents      : {len(doc_lengths)}")
-print(f"  avgdl                : {avgdl:.2f} tokens")
-
-# ── Sanity checks ────────────────────────────────────────────────────────────
+# ── Sanity checks (always run, regardless of load vs build) ──────────────────
 
 def inspect_term(term):
     if term not in tok2idx:
@@ -127,27 +157,10 @@ def inspect_term(term):
     print(f"  '{term}' (idx {idx}) → {len(postings)} docs | top 5 TF: {top5}")
 
 print()
-inspect_term("python")   # should appear in several docs
-inspect_term("the")      # should be absent — stopword
-inspect_term("data")     # expect high frequency
+inspect_term("python")
+inspect_term("the")
+inspect_term("data")
 
 print(f"\n  doc_metadata sample (doc_id=0):")
 for k, v in doc_metadata[0].items():
-    print(f"    {k:10}: {str(v)[:80]}")
-
-# ── Persist everything Day 5 will need ───────────────────────────────────────
-
-index_data = {
-    "inverted_index" : dict(inverted_index),
-    "doc_metadata"   : doc_metadata,
-    "doc_lengths"    : doc_lengths,
-    "avgdl"          : avgdl,
-    "tok2idx"        : tok2idx,
-    "idx2tok"        : idx2tok,
-    "num_docs"       : len(raw_docs)
-}
-
-with open("index_data.pkl", "wb") as f:
-    pickle.dump(index_data, f)
-
-print("\nSaved → index_data.pkl")
+    print(f"    {k:10}: {str(v)[:80]}") 
