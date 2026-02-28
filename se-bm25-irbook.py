@@ -1,5 +1,6 @@
 import os
 import re
+import math
 import pickle
 import nltk
 from collections import defaultdict, Counter
@@ -50,17 +51,62 @@ def build_vocabulary(preprocessed_dict):
     idx2tok = {idx: token for idx, token in enumerate(vocab)}
     return tok2idx, idx2tok
 
+def preprocess_query(query_string):
+    """Run query through the SAME pipeline as documents."""
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+
+    query = query_string.lower()
+    query = re.sub(r'[^\w\s]', "", query)
+    tokens = nltk.word_tokenize(query)
+    tokens = [w for w in tokens if w not in stop_words]
+    tokens = [lemmatizer.lemmatize(w) for w in tokens]
+    return tokens
+
+def bm25_plus(query_string, inverted_index, doc_lengths, avgdl,
+              tok2idx, num_docs, k1=1.2, b=0.75, delta=1.0):
+    """Score all documents against the query using BM25+."""
+    query_tokens = preprocess_query(query_string)
+    N = num_docs
+    scores = {}
+
+    for token in query_tokens:
+        if token not in tok2idx:
+            continue
+        term_idx = tok2idx[token]
+
+        if term_idx not in inverted_index:
+            continue
+
+        postings = inverted_index[term_idx]
+        df_t = len(postings)
+
+        idf = math.log((N + 1) / df_t)
+
+        for doc_id, tf in postings:
+            doc_len = doc_lengths[doc_id]
+
+            numerator = tf * (k1 + 1)
+            denominator = tf + k1 * (1 - b + b * (doc_len / avgdl))
+            tf_component = numerator / denominator
+
+            term_score = idf * (tf_component + delta)
+
+            scores[doc_id] = scores.get(doc_id, 0.0) + term_score
+
+    ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    return ranked
+
 # ── Constants ─────────────────────────────────────────────────────────────────
 
 PICKLE_PATH   = "index_data.pkl"
 FOLDER_PATH   = r"C:\Users\cruzi\OneDrive\Documents\CS4422 Assignment 2\data"
 CONTENT_FIELD = "Text"
-FORCE_REBUILD = False   # set to True to regenerate the index from scratch
+FORCE_REBUILD = False
 
 # ── Load or Build ─────────────────────────────────────────────────────────────
 
 if os.path.exists(PICKLE_PATH) and not FORCE_REBUILD:
-    # ── Fast path: load from disk ─────────────────────────────────────────
     print("Found index_data.pkl — loading from disk (skipping indexing)...")
     with open(PICKLE_PATH, "rb") as f:
         index_data = pickle.load(f)
@@ -76,7 +122,6 @@ if os.path.exists(PICKLE_PATH) and not FORCE_REBUILD:
     print(f"Loaded index: {len(inverted_index)} terms, {num_docs} docs, avgdl={avgdl:.2f}")
 
 else:
-    # ── Slow path: build from raw files ──────────────────────────────────
     raw_docs = []
 
     for filename in os.listdir(FOLDER_PATH):
@@ -88,7 +133,6 @@ else:
 
     print(f"Loaded {len(raw_docs)} documents")
 
-    # ── Preprocess & build vocabulary ────────────────────────────────────
     all_preprocessed_tokens = {}
     for doc_id, doc in enumerate(raw_docs):
         text = doc.get(CONTENT_FIELD, "")
@@ -98,7 +142,6 @@ else:
     tok2idx, idx2tok = build_vocabulary(all_preprocessed_tokens)
     print(f"Vocabulary size: {len(tok2idx)}")
 
-    # ── Build inverted index ──────────────────────────────────────────────
     inverted_index = defaultdict(list)
     doc_metadata   = {}
     doc_lengths    = []
@@ -121,7 +164,7 @@ else:
             "filename": doc.get("filename",      "")
         }
 
-    avgdl   = sum(doc_lengths) / len(doc_lengths)
+    avgdl    = sum(doc_lengths) / len(doc_lengths)
     num_docs = len(raw_docs)
 
     print(f"\nIndex built:")
@@ -129,7 +172,6 @@ else:
     print(f"  Total documents      : {num_docs}")
     print(f"  avgdl                : {avgdl:.2f} tokens")
 
-    # ── Save to disk ──────────────────────────────────────────────────────
     index_data = {
         "inverted_index" : dict(inverted_index),
         "doc_metadata"   : doc_metadata,
@@ -145,7 +187,7 @@ else:
 
     print("\nSaved → index_data.pkl")
 
-# ── Sanity checks (always run, regardless of load vs build) ──────────────────
+# ── Sanity checks ────────────────────────────────────────────────────────────
 
 def inspect_term(term):
     if term not in tok2idx:
@@ -163,4 +205,19 @@ inspect_term("data")
 
 print(f"\n  doc_metadata sample (doc_id=0):")
 for k, v in doc_metadata[0].items():
-    print(f"    {k:10}: {str(v)[:80]}") 
+    print(f"    {k:10}: {str(v)[:80]}")
+
+# ── BM25+ Search Test ────────────────────────────────────────────────────────
+
+print("\n── BM25+ Search ──────────────────────────────────────────")
+
+test_query = "python programming"
+results = bm25_plus(test_query, inverted_index, doc_lengths,
+                    avgdl, tok2idx, num_docs)
+
+print(f"\nQuery: '{test_query}'")
+print(f"Documents scored: {len(results)}")
+print(f"\nTop 10 results:")
+for rank, (doc_id, score) in enumerate(results[:10], 1):
+    title = doc_metadata[doc_id].get("title", "N/A")
+    print(f"  {rank}. [score={score:.4f}] (doc {doc_id}) {title}")

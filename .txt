@@ -1,0 +1,24 @@
+Day 1 – Setup & Data Exploration
+Get your environment ready (Python, nltk, pickle, tqdm). Load a few of the crawled webpage files and understand their structure (URL, access time, title, content). Download nltk data (stopwords, wordnet, punkt).
+Day 2 – Text Preprocessing
+Write the text_preprocessing method: tokenization, lowercasing, punctuation removal, digit removal, stopword removal, and lemmatization. Test it on a handful of documents to make sure output looks clean.
+Day 3 – Vocabulary Building
+Implement tok2idx and idx2tok dictionaries. Loop through all preprocessed documents and build the full vocabulary. Verify the vocab size is reasonable (~5900 tokens based on the example).
+Day 4 – Inverted Index & Postings Lists
+Build the inverted index mapping each term index to a list of (doc_id, term_frequency) tuples. Store document metadata (URL, title, content, filename). Calculate and store avgdl.
+Day 5 – Save/Load Index with Pickle
+Implement saving the full index to disk and loading it on subsequent runs. Test that the second run skips indexing and loads from file. This saves you time during development.
+Day 6 – BM25+ Scoring Function
+Implement the BM25+ formula. Code the IDF calculation, set k1=1.2, b=0.75, δ=1.0 (standard defaults). Make sure query terms go through the same preprocessing pipeline.
+Day 7 – Search Agent & Results Display
+Build the SearchAgent class with query() and display_results(). Show doc ID, score, URL, and filename. Test with the example queries (bm25, maximum likelihood estimation) and compare your output to the expected results.
+Day 8 – Debug & Validate BM25+
+Fine-tune your implementation. Check edge cases: query terms not in the vocabulary, empty documents, single-term queries. Make sure scores and ranking order are reasonable.
+Day 9 – TF-IDF Implementation
+Add a TF-IDF scoring function (pick a variant from the Wikipedia page). Wire it into your SearchAgent so you can switch between BM25+ and TF-IDF.
+Day 10 – Compare BM25+ vs TF-IDF
+Run several queries through both models. Note differences in ranking order, score distribution, and which documents surface. Jot down observations for your report.
+Day 11 – Write the Report
+Cover: your implementation approach, preprocessing choices, index structure, BM25+ and TF-IDF formulas used, example queries with results from both models, comparison discussion, and any challenges faced. Export as PDF.
+Day 12 – Final Testing & Submission
+Clean up your code into a single .py file (no notebooks). Do a fresh run end-to-end: index creation → save → load → query. Proofread the report. Submit both files.
