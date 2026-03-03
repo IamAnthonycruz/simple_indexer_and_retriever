@@ -12,7 +12,33 @@ nltk.download('wordnet')
 nltk.download('punkt_tab')
 
 # ── Functions ────────────────────────────────────────────────────────────────
+class SearchAgent:
+    def __init__(self, inverted_index, doc_metadata, doc_lengths, avgdl, tok2idx, num_docs):
+        self.inverted_index = inverted_index
+        self.doc_metadata = doc_metadata
+        self.doc_lengths = doc_lengths
+        self.avgdl = avgdl
+        self.tok2idx, num_docs = tok2idx, num_docs
+    def query(self, query_string, top_k=10):
+        arr = bm25_plus(query_string, self.inverted_index, self.doc_lengths, self.avgdl,self.tok2idx,self.num_docs,)
+        sliceArr = arr[:top_k]
+        return sliceArr
+    def display_results(self, query_string, results):
+        print(f"\nQuery: '{query_string}'")
+        print(f"Results found: {len(results)}")
+        print("-" * 60)
 
+        if not results:
+            print("  No matching documents found.")
+            return
+
+        for rank, (doc_id, score) in enumerate(results, 1):
+            meta = self.doc_metadata[doc_id]
+            print(f"  Rank {rank} | Doc {doc_id} | Score: {score:.4f}")
+            print(f"    URL:      {meta.get('url', 'N/A')}")
+            print(f"    File:     {meta.get('filename', 'N/A')}")
+            print(f"    Title:    {meta.get('title', 'N/A')}")
+            print()
 def parse_file(file_path):
     hash_map = {}
     with open(file_path, "r") as file:
@@ -207,17 +233,4 @@ print(f"\n  doc_metadata sample (doc_id=0):")
 for k, v in doc_metadata[0].items():
     print(f"    {k:10}: {str(v)[:80]}")
 
-# ── BM25+ Search Test ────────────────────────────────────────────────────────
-
-print("\n── BM25+ Search ──────────────────────────────────────────")
-
-test_query = "python programming"
-results = bm25_plus(test_query, inverted_index, doc_lengths,
-                    avgdl, tok2idx, num_docs)
-
-print(f"\nQuery: '{test_query}'")
-print(f"Documents scored: {len(results)}")
-print(f"\nTop 10 results:")
-for rank, (doc_id, score) in enumerate(results[:10], 1):
-    title = doc_metadata[doc_id].get("title", "N/A")
-    print(f"  {rank}. [score={score:.4f}] (doc {doc_id}) {title}")
+# ── BM25+ Search Test ────
